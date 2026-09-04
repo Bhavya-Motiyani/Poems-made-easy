@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Poem Sentiment & Meaning</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <main class="page">
+        <h1>Poems: Made Easy</h1>
+        <p class="subtitle">
+            Enter a poem to get its explanation and predicted sentiment.
+        </p>
+
+        <section class="top-grid">
+            <div class="panel">
+                <label for="poem">Poem</label>
+                <textarea id="poem" placeholder="Write your poem here..."></textarea>
+            </div>
+
+            <div class="panel">
+                <label for="explanation">Explanation</label>
+                <textarea id="explanation" readonly placeholder="A short explanation of the poem"></textarea>
+            </div>
+        </section>
+
+        <section class="panel sentiment-panel">
+            <label for="sentiment">Sentiment</label>
+            <input id="sentiment" type="text" readonly placeholder="Sentiment of the poem">
+            <div id="sentimentBadge" class="badge hidden"></div>
+        </section>
+
+        <button id="predictButton" type="button" onclick="predictPoem()">
+            Predict
+        </button>
+
+        <p id="status" class="status"></p>
+    </main>
+
+    <script>
+        async function predictPoem() {
+            const poem = document.getElementById("poem").value.trim();
+            const explanation = document.getElementById("explanation");
+            const sentiment = document.getElementById("sentiment");
+            const button = document.getElementById("predictButton");
+            const status = document.getElementById("status");
+            const badge = document.getElementById("sentimentBadge");
+
+            if (!poem) {
+                status.textContent = "Please enter a poem first.";
+                status.className = "status error";
+                return;
+            }
+
+            button.disabled = true;
+            button.textContent = "Predicting...";
+            status.textContent = "Running both models...";
+            status.className = "status";
+            explanation.value = "";
+            sentiment.value = "";
+            badge.className = "badge hidden";
+
+            try {
+                const response = await fetch("/predict", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({ poem })
+                });
+
+                const data = await response.json();
+
+                if (!response.ok) {
+                    throw new Error(data.error || "Prediction failed.");
+                }
+
+                explanation.value = data.explanation;
+                sentiment.value = data.sentiment;
+
+                badge.textContent = data.sentiment;
+                badge.className = "badge " + data.sentiment.toLowerCase().replace(" ", "-");
+
+                status.textContent = "Prediction complete.";
+                status.className = "status success";
+            } catch (error) {
+                status.textContent = error.message;
+                status.className = "status error";
+            } finally {
+                button.disabled = false;
+                button.textContent = "Predict";
+            }
+        }
+    </script>
+</body>
+</html>

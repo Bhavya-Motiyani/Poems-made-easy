@@ -1,0 +1,232 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+:root {
+    --bg: #0a0e1a;
+    --bg-glow: #0f1830;
+    --panel: #131a2c;
+    --panel-border: #232c46;
+    --input-bg: #0d1322;
+    --input-border: #262f4c;
+    --text: #e8eaf3;
+    --text-soft: #8891ab;
+    --text-faint: #5c6584;
+    --accent: #4e7ce8;
+    --accent-hover: #6690ee;
+    --sage: #5fae7f;
+    --rose: #d1707a;
+    --gold: #d8ab52;
+    --radius: 10px;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    font-family: 'Inter', Arial, sans-serif;
+    color: var(--text);
+    background:
+        radial-gradient(900px 480px at 15% -10%, rgba(78, 124, 232, 0.14), transparent 60%),
+        var(--bg);
+}
+
+.page {
+    width: min(1500px, 94%);
+    margin: 48px auto;
+}
+
+h1 {
+    margin: 0;
+    text-align: left;
+    font-size: 34px;
+    font-weight: 800;
+    letter-spacing: -0.01em;
+}
+
+h1::before {
+    content: "MACHINE LEARNING · NATURAL LANGUAGE PROCESSING";
+    display: block;
+    margin-bottom: 10px;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    color: var(--accent);
+}
+
+.subtitle {
+    margin: 10px 0 32px;
+    text-align: left;
+    color: var(--text-soft);
+    font-size: 15px;
+}
+
+.top-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.panel {
+    background: var(--panel);
+    border: 1px solid var(--panel-border);
+    border-radius: var(--radius);
+    padding: 20px;
+}
+
+label {
+    display: block;
+    margin-bottom: 10px;
+    color: var(--text-soft);
+    font-size: 13px;
+    font-weight: 600;
+}
+
+textarea,
+input {
+    width: 100%;
+    border: 1px solid var(--input-border);
+    border-radius: 7px;
+    background: var(--input-bg);
+    font: inherit;
+    color: var(--text);
+    outline: none;
+    transition: border-color 0.15s ease;
+}
+
+textarea::placeholder,
+input::placeholder {
+    color: var(--text-faint);
+}
+
+textarea:focus,
+input:focus {
+    border-color: var(--accent);
+}
+
+#poem,
+#explanation {
+    min-height: 310px;
+    resize: vertical;
+    padding: 14px;
+    line-height: 1.6;
+}
+
+#explanation {
+    color: var(--text-soft);
+}
+
+#sentiment {
+    min-height: 58px;
+    padding: 14px;
+    font-weight: 600;
+}
+
+.sentiment-panel {
+    margin-top: 20px;
+}
+
+.badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    margin-top: 12px;
+    padding: 7px 14px;
+    border-radius: 999px;
+    font-size: 13px;
+    font-weight: 600;
+    text-transform: capitalize;
+    background: var(--input-bg);
+    border: 1px solid var(--input-border);
+    color: var(--text-soft);
+}
+
+.badge::before {
+    content: "";
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--text-faint);
+}
+
+.badge[class*="positive"] {
+    background: rgba(95, 174, 127, 0.12);
+    border-color: rgba(95, 174, 127, 0.35);
+    color: var(--sage);
+}
+.badge[class*="positive"]::before { background: var(--sage); }
+
+.badge[class*="negative"] {
+    background: rgba(209, 112, 122, 0.12);
+    border-color: rgba(209, 112, 122, 0.35);
+    color: var(--rose);
+}
+.badge[class*="negative"]::before { background: var(--rose); }
+
+.badge[class*="neutral"],
+.badge[class*="mixed"] {
+    background: rgba(216, 171, 82, 0.12);
+    border-color: rgba(216, 171, 82, 0.35);
+    color: var(--gold);
+}
+.badge[class*="neutral"]::before,
+.badge[class*="mixed"]::before { background: var(--gold); }
+
+.hidden {
+    display: none;
+}
+
+button {
+    width: 100%;
+    margin-top: 20px;
+    border: 0;
+    border-radius: 8px;
+    padding: 16px;
+    background: var(--accent);
+    color: #fff;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background 0.15s ease, transform 0.05s ease;
+}
+
+button:hover:not(:disabled) {
+    background: var(--accent-hover);
+}
+
+button:active:not(:disabled) {
+    transform: translateY(1px);
+}
+
+button:disabled {
+    cursor: wait;
+    opacity: 0.6;
+}
+
+.status {
+    min-height: 24px;
+    margin: 14px 0 0;
+    text-align: center;
+    font-size: 14px;
+    color: var(--text-soft);
+}
+
+.status.success {
+    color: var(--sage);
+}
+
+.status.error {
+    color: var(--rose);
+}
+
+@media (max-width: 800px) {
+    .top-grid {
+        grid-template-columns: 1fr;
+    }
+
+    #poem,
+    #explanation {
+        min-height: 240px;
+    }
+}

@@ -1,0 +1,3 @@
+# Install the main requirements first.
+# This package is used for 4-bit Gemma inference on CUDA.
+bitsandbytes
