@@ -129,7 +129,7 @@ poem_flask_app/
 ├── requirements-gpu.txt
 ├── README.md
 │
-├── models/
+├── Models/
 │   ├── meaning_adapter/     (Gemma LoRA adapter)
 │   └── sentiment/           (DistilBERT model)
 │
