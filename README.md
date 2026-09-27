@@ -144,8 +144,8 @@ The Gemma LoRA adapter is stored separately; the base `google/gemma-2b` model mu
 ## Installation
 
 ```bash
-git clone <your-repository-url>
-cd <your-repository-folder>
+git clone [<your-repository-url>](https://github.com/Bhavya-Motiyani/Poems-made-easy)
+cd [<your-repository-folder>](https://github.com/Bhavya-Motiyani/Poems-made-easy)
 
 python -m venv .venv
 source .venv/bin/activate      # Windows: .venv\Scripts\activate
